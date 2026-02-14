@@ -25,3 +25,7 @@ Commit 2: Add input validation, unit selection, and repeat-run workflow
   - Includes an exact conversion constant `1 eV = 1.602176634e-19 J`.
 - Added a repeat-run option so multiple transitions can be computed in one program execution (`y/n` loop).
 - Improved output formatting using `std::setprecision(10)` for clearer numeric results.
+
+Commit 3: Refactor energy calculation into a separate function
+- Added a separate function `transition_energy_eV(Z, ni, nj)` to compute and return the transition energy in eV.
+- Updated `main()` to call this function while keeping the existing input checks, unit selection, and repeat-run workflow.
