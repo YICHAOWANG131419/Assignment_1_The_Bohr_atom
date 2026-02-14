@@ -27,5 +27,10 @@ Commit 2: Add input validation, unit selection, and repeat-run workflow
 - Improved output formatting using `std::setprecision(10)` for clearer numeric results.
 
 Commit 3: Refactor energy calculation into a separate function
-- Added a separate function `transition_energy_eV(Z, ni, nj)` to compute and return the transition energy in eV.
+- Added a separate function `transition_energy_eV(Z, n_i, n_j)` to compute and return the transition energy in eV.
 - Updated `main()` to call this function while keeping the existing input checks, unit selection, and repeat-run workflow.
+
+Commit 4: Improve invalid-input handling and output formatting
+- Kept the original step-by-step prompts (Z, n_i, n_j, unit) but moved the `n_j < n_i` check to after all four inputs are entered, so the program no longer gets stuck re-prompting mid-way.
+- Added a retry prompt after an invalid full input: the user can choose to re-enter all inputs by typing `y/n`.
+- Updated output formatting to show results to 3 decimal places.
