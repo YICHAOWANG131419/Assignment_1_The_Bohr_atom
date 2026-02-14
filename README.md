@@ -34,3 +34,11 @@ Commit 4: Improve invalid-input handling and output formatting
 - Kept the original step-by-step prompts (Z, n_i, n_j, unit) but moved the `n_j < n_i` check to after all four inputs are entered, so the program no longer gets stuck re-prompting mid-way.
 - Added a retry prompt after an invalid full input: the user can choose to re-enter all inputs by typing `y/n`.
 - Updated output formatting to show results to 3 decimal places.
+
+Declaration of AI use
+
+I used ChatGPT for:
+- Debugging build/run issues (It includes: filename mismatches with the Makefile, and how to run the compiled executable).
+- Guidance on setting up local and GitHub Codespaces build environments and compiling with the provided Makefile.
+- Help polishing README text (It includes: mark-down formatting compile/run commands and brief commit-history notes).
+All changes were applied and tested by me, and the development process is shown in the commit history.
