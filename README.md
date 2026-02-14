@@ -41,4 +41,5 @@ I used ChatGPT for:
 - Debugging build/run issues (It includes: filename mismatches with the Makefile, and how to run the compiled executable).
 - Guidance on setting up local and GitHub Codespaces build environments and compiling with the provided Makefile.
 - Help polishing README text (It includes: mark-down formatting compile/run commands and brief commit-history notes).
+
 All changes were applied and tested by me, and the development process is shown in the commit history.
