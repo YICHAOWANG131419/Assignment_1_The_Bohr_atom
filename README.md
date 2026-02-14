@@ -1,20 +1,14 @@
-This is the template for the first assignment. 
+Assignment 1 - The Bohr atom
+Yichao Wang 10455639
+Development steps (commit history)
 
-# Tips on checking compilation
+Commit 1: Initial working version and build setup
+- Created the repository from the provided Assignment 1 template.
+- Set up a Linux build environment in GitHub Codespaces so the project can be compiled using the provided `Makefile` via `make`.
+- Installed the required compiler toolchain (`g++-11`), as it was not available by default in the Codespaces image.
+- Renamed the source file from `Assignment-1.cpp` to `assignment-1.cpp` (changed the leading `A` to lowercase) to match the `Makefile` target on a case-sensitive system.
+- Implemented the first working version of the program:
+  - Reads `Z`, `n_i`, and `n_j` from standard input.
+  - Computes the transition energy using the Bohr formula in eV, implemented as `136000 * 1e-4` as required.
+  - Prints the computed energy in eV with fixed precision output formatting.
 
-If you want to compile your code in the same way the demonstrators will compile it to check it, you can just write "make" in the console. 
-This will use a the combination of the `make` command with a `Makefile` file that you will see in the same folder. In this case, doing this which in this case will run the following command:
-
-`g++-11 assignment-1.cpp -o assignment-1.o -std=gnu++17`
-
-The std=gnu++17 makes sure that the compiler you're using locally (which you should have installed following the instructions on the Quickstart guide on Blackboard/Git) picks up the same version of the C++ standards as the computers in the lab. 
-
-This command will produce the following file in the same directory you're running on:
-
-`g++-11 assignment-1.cpp -o assignment-1.o -std=gnu++17`
-
-Which you can then execute in a terminal using: 
-
-`./assignment-1.o`
-
-You can find out more about Makefiles [here](https://www.gnu.org/software/make/manual/html_node/Introduction.html) or [in this simple starter guide](https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/) but we won't cover these in the course. 
