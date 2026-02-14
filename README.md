@@ -1,6 +1,10 @@
 Assignment 1 - The Bohr atom
+
 Yichao Wang 10455639
+
 Development steps (commit history)
+
+Note: Commit 1 and 2 are initially edited in local V-S Code environment serveral days ago.
 
 Commit 1: Initial working version and build setup
 - Created the repository from the provided Assignment 1 template.
@@ -12,3 +16,12 @@ Commit 1: Initial working version and build setup
   - Computes the transition energy using the Bohr formula in eV, implemented as `136000 * 1e-4` as required.
   - Prints the computed energy in eV with fixed precision output formatting.
 
+Commit 2: Add input validation, unit selection, and repeat-run workflow
+- Added robust input validation for all user inputs:
+  - Ensures `Z > 0`, `n_i > 0`, and enforces the physical condition `n_j < n_i`.
+  - Detects non-integer or invalid input and recovers by clearing the input stream and ignoring the remaining line.
+- Added output unit selection:
+  - Allows the user to choose between electron volts (eV) and Joules (J).
+  - Includes an exact conversion constant `1 eV = 1.602176634e-19 J`.
+- Added a repeat-run option so multiple transitions can be computed in one program execution (`y/n` loop).
+- Improved output formatting using `std::setprecision(10)` for clearer numeric results.
