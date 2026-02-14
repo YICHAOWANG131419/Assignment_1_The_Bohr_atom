@@ -3,36 +3,110 @@
 
 #include <iostream>
 #include <iomanip>
+#include <limits>
 
 int main()
 {
+    const double EV_TO_J = 1.602176634e-19;   // J per eV (exact)
     const double BOHR_FACTOR_INT = 136000.0;  // As requested: use 136000 instead of 13.6
     const double BOHR_FACTOR_SCALE = 1.0e-4;  // 136000 * 1e-4 = 13.6
 
-    int Z = 0;
-    int ni = 0;
-    int nj = 0;
+    while (true)
+    {
+        int Z = 0;
+        int ni = 0;
+        int nj = 0;
+        char unit = '\0';
+        // --- Atomic number ---
+        while (true)
+        {
+            std::cout << "Enter atomic number Z (positive integer): ";
+            if (std::cin >> Z && Z > 0) break;
 
-    // Ask user to enter atomic number
-    std::cout << "Enter atomic number Z (positive integer): ";
-    std::cin >> Z;
+            std::cout << "Error: Z must be a positive integer.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
 
-    // Ask user to enter initial and final quantum numbers
-    std::cout << "Enter initial quantum number n_i (positive integer): ";
-    std::cin >> ni;
+        // --- Quantum numbers ---
+        while (true)
+        {
+            std::cout << "Enter initial quantum number n_i (positive integer): ";
+            if (std::cin >> ni && ni > 0) break;
 
-    std::cout << "Enter final quantum number n_j (positive integer): ";
-    std::cin >> nj;
+            std::cout << "Error: n_i must be a positive integer.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
 
-    // Compute photon energy, Delta E = 13.6*(Z^2)*(1/n_j^2-1/n_i^2) eV
-    const double Z2 = static_cast<double>(Z) * static_cast<double>(Z);
-    const double term =
-        (1.0 / (static_cast<double>(nj) * nj)) - (1.0 / (static_cast<double>(ni) * ni));
-    const double deltaE_eV = (BOHR_FACTOR_INT * BOHR_FACTOR_SCALE) * Z2 * term;
+        while (true)
+        {
+            std::cout << "Enter final quantum number n_j (positive integer, and n_j < n_i): ";
+            if (std::cin >> nj && nj > 0 && nj < ni) break;
 
-    // Output answer
-    std::cout << std::setprecision(10);
-    std::cout << "Here is my answer: " << deltaE_eV << " eV" << std::endl;
+            if (!std::cin)
+            {
+                std::cout << "Error: n_j must be a positive integer.\n";
+            }
+            else
+            {
+                std::cout << "Error: physical condition violated (need n_j < n_i).\n";
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
 
+        // --- Units ---
+        while (true)
+        {
+            std::cout << "Display energy in Joules (J) or electron volts (e)? Enter J or e: ";
+            if (std::cin >> unit)
+            {
+                if (unit == 'J' || unit == 'j' || unit == 'e' || unit == 'E') break;
+            }
+            std::cout << "Error: please enter 'J' for Joules or 'e' for electron volts.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+
+        // Compute photon energy:
+        // DeltaE = 13.6 * Z^2 * (1/n_j^2 - 1/n_i^2)  [eV]
+        // But per instructions, parse with 136000 as the multiplicative factor:
+        // 13.6 = 136000 * 1e-4
+        const double Z2 = static_cast<double>(Z) * static_cast<double>(Z);
+        const double term = (1.0 / (static_cast<double>(nj) * nj)) - (1.0 / (static_cast<double>(ni) * ni));
+        const double deltaE_eV = (BOHR_FACTOR_INT * BOHR_FACTOR_SCALE) * Z2 * term;
+
+        std::cout << std::setprecision(10);
+
+        if (unit == 'e' || unit == 'E')
+        {
+            std::cout << "Transition energy: " << deltaE_eV << " eV\n";
+        }
+        else
+        {
+            const double deltaE_J = deltaE_eV * EV_TO_J;
+            std::cout << "Transition energy: " << deltaE_J << " J\n";
+        }
+
+        // Repeat?
+        char again = '\0';
+        while (true)
+        {
+            std::cout << "Calculate another transition? (y/n): ";
+            if (std::cin >> again)
+            {
+                if (again == 'y' || again == 'Y' || again == 'n' || again == 'N') break;
+            }
+            std::cout << "Error: please enter 'y' or 'n'.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+
+        if (again == 'n' || again == 'N') break;
+        std::cout << "\n";
+    }
+
+    // This hovercraft is full of eels
     return 0;
 }
